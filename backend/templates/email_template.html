@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Welcome to ABC Company</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f8;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      background-color: #1f2937;
+      padding: 24px;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    .content {
+      padding: 30px;
+      color: #333333;
+      line-height: 1.6;
+    }
+
+    .content h2 {
+      margin-top: 0;
+      color: #111827;
+    }
+
+    .password-box {
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #f1f5f9;
+      border-left: 4px solid #2563eb;
+      font-size: 16px;
+    }
+
+    .password-box strong {
+      color: #2563eb;
+      font-size: 18px;
+    }
+
+    .cta {
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .cta a {
+      background-color: #2563eb;
+      color: #ffffff;
+      padding: 12px 22px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 16px;
+      display: inline-block;
+    }
+
+    .footer {
+      background-color: #f9fafb;
+      padding: 20px;
+      text-align: center;
+      font-size: 13px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Welcome to ABC Company 🎉</h1>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <h2>Hello user,</h2>
+
+      <p>
+        We’re excited to have you on board! Your account has been successfully
+        created with <strong>ABC Company</strong>.
+      </p>
+
+      <p>
+        Below are your temporary login credentials. Please keep them safe and
+        do not share them with anyone.
+      </p>
+
+      <div class="password-box">
+        Temporary Password: <strong>{{password}}</strong>
+      </div>
+
+      <p>
+        For security reasons, we strongly recommend that you change your
+        password immediately after logging in.
+      </p>
+
+      <div class="cta">
+        <a href="www.youtube.com">Login to Your Account</a>
+      </div>
+
+      <p>
+        If you did not create this account, please ignore this email or contact
+        our support team immediately.
+      </p>
+
+      <p>
+        Best regards,<br />
+        <strong>ABC Company Team</strong>
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      © 2025 ABC Company. All rights reserved.<br />
+      This is an automated email, please do not reply.
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+import { useSelector } from "react-redux";
+
+import ChatHeader from "./chatWindow/ChatHeader";
+import MessageList from "./chatWindow/MessageList";
+import ChatInput from "./chatWindow/ChatInput";
+
+import { useChat } from "../custom-hooks/useChat";
+import { useTyping } from "../custom-hooks/useTyping";
+import { useSocket } from "../contexts/socketContext";
+import Norecords from "./Norecords";
+
+const ChatWindow = ({ activeChat, onBack }) => {
+  const { socket, onlineUsers } = useSocket();
+  const authUser = useSelector((state) => state.user.userData);
+
+  const isGroup = activeChat?.isGroup === true;
+
+  const isChatUserOnline = onlineUsers.includes(
+    activeChat?._id || activeChat?.id,
+  );
+
+  const { messageList, isLoading, addMessage } = useChat(
+    activeChat,
+    socket,
+    isGroup,
+  );
+  const { typingUser, emitTyping } = useTyping(
+    socket,
+    activeChat,
+    authUser,
+    isGroup,
+  );
+
+  if (!activeChat) {
+    return (
+      <div className="w-[76%] h-full flex items-center justify-center">
+        <Norecords />
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex-1 flex flex-col h-full bg-[#0f172a] relative z-10">
+      <ChatHeader
+        activeChat={activeChat}
+        isGroup={isGroup}
+        onBack={onBack}
+        isChatUserOnline={isChatUserOnline}
+      />
+
+      <MessageList
+        messageList={messageList}
+        authUser={authUser}
+        typingUser={typingUser}
+        isGroup={isGroup}
+        memberCount={activeChat?.members?.length || 0}
+      />
+
+      <ChatInput
+        activeChat={activeChat}
+        addMessage={addMessage}
+        emitTyping={emitTyping}
+      />
+    </div>
+  );
+};
+
+export default ChatWindow;
