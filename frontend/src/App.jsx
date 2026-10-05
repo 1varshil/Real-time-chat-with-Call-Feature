@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import SignUp from "./pages/signUp.jsx";
+import SignUp from "./pages/SignUp.jsx";
 import Login from "./pages/Login.jsx";
 import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profile.jsx";
