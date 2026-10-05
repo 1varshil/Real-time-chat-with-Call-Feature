@@ -12,6 +12,7 @@ import {
   acceptCall,
   endCall,
   resetCall,
+  initiateCall,
 } from "../redux/callSlice";
 
 const CallContext = createContext();
@@ -36,6 +37,7 @@ export const CallProvider = ({ children }) => {
   const [remoteStream, setRemoteStream] = useState(null);
 
   const peerConnection = useRef(null);
+  const remoteUserIdRef = useRef(null);
 
   // Initialize peer connection
   const createPeerConnection = () => {
@@ -43,9 +45,9 @@ export const CallProvider = ({ children }) => {
 
     // Send any ice candidates to the other peer
     pc.onicecandidate = (event) => {
-      if (event.candidate && callState.caller) {
+      if (event.candidate && remoteUserIdRef.current) {
         socket.emit("iceCandidate", {
-          to: callState.caller,
+          to: remoteUserIdRef.current,
           candidate: event.candidate,
         });
       }
@@ -119,6 +121,9 @@ export const CallProvider = ({ children }) => {
   };
 
   const callUser = async (userToCall, video = true) => {
+    dispatch(initiateCall({ callType: video ? "video" : "audio" }));
+    remoteUserIdRef.current = userToCall;
+
     const stream = await startLocalStream(video);
     if (!stream) return;
 
@@ -141,6 +146,8 @@ export const CallProvider = ({ children }) => {
   };
 
   const answerCurrentCall = async () => {
+    remoteUserIdRef.current = callState.caller;
+
     const stream = await startLocalStream(callState.callType === "video");
     if (!stream) return;
 
@@ -176,11 +183,14 @@ export const CallProvider = ({ children }) => {
       setLocalStream(null);
     }
     setRemoteStream(null);
+    remoteUserIdRef.current = null;
     dispatch(resetCall());
   };
 
   const terminateCall = () => {
-    if (callState.caller) {
+    if (remoteUserIdRef.current) {
+      socket.emit("endCall", { to: remoteUserIdRef.current });
+    } else if (callState.caller) {
       socket.emit("endCall", { to: callState.caller });
     }
     cleanupCall();

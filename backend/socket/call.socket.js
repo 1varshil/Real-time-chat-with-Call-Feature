@@ -1,6 +1,6 @@
 export const registerCallHandlers = (io, socket, userSocketMap) => {
     // Caller initiates a call
-    socket.on("callUser", ({ userToCall, signalData, from, name }) => {
+    socket.on("callUser", ({ userToCall, signalData, from, name, callType }) => {
         const receiverSocketId = userSocketMap[userToCall];
         if (receiverSocketId) {
             io.to(receiverSocketId).emit("incomingCall", {

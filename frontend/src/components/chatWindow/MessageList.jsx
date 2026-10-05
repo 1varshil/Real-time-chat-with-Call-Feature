@@ -22,7 +22,7 @@ const MessageList = ({
   }, [messageList, typingUser]);
 
   return (
-    <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6 custom-scrollbar bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-fixed opacity-95">
+    <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6 custom-scrollbar relative z-10">
       <AnimatePresence>
         {messageList.map((msg, idx) => {
           const isMine = getId(msg.sender) === authUser?._id;
