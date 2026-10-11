@@ -8,8 +8,17 @@ import { Provider } from "react-redux";
 import { SocketProvider } from "./contexts/socketContext.jsx";
 import { PeerProvider } from "./contexts/peer.jsx";
 import { CallProvider } from "./custom-hooks/useWebRTC.jsx";
-export const Serverurl =
-  import.meta.env.VITE_API_PORT || "http://localhost:8000";
+const rawServerUrl =
+  import.meta.env.VITE_SERVER_URL ||
+  import.meta.env.VITE_API_PORT ||
+  "http://localhost:8000";
+
+export const Serverurl = (
+  rawServerUrl.startsWith("http://") || rawServerUrl.startsWith("https://")
+    ? rawServerUrl
+    : `http://localhost:${rawServerUrl}`
+).replace(/\/+$/, "");
+
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Provider store={store}>

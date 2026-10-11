@@ -25,6 +25,11 @@ credentials: true,
 }));
 
 
+app.use((req, res, next) => {
+  req.url = req.url.replace(/\/{2,}/g, "/");
+  next();
+});
+
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/auth",authRouter);
