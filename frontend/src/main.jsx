@@ -9,7 +9,8 @@ import { SocketProvider } from "./contexts/socketContext.jsx";
 import { PeerProvider } from "./contexts/peer.jsx";
 import { CallProvider } from "./custom-hooks/useWebRTC.jsx";
 const apiPort = import.meta.env.VITE_API_PORT || 8000;
-export const Serverurl = `http://localhost:${apiPort}`;
+export const Serverurl =
+  import.meta.env.VITE_API_URL || "http://localhost:8000";
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Provider store={store}>
