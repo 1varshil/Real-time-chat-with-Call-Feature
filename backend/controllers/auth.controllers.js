@@ -8,7 +8,26 @@ import { io } from "../socket/socket.js";
 
 export const signUp = async (req, res) => {
     try {
+        console.log("SIGNUP ROUTE HIT");
         const { username, email, password } = req.body;
+        console.log("REQUEST BODY", req.body);
+        console.log("USERNAME: ", username);
+        console.log("EMAIL: ", email);
+        console.log("PASSWORD: ", password);
+
+
+        if (
+            typeof username !== "string" ||
+            typeof email !== "string" ||
+            typeof password !== "string" ||
+            !username.trim() ||
+            !email.trim() ||
+            !password
+            ) {
+            return res.status(400).json({
+                message: "Username, email, and password are required",
+            });
+        }
         const checkUserByUserName = await User.findOne({ username });
         const checkUserByEmail = await User.findOne({ email });
 
