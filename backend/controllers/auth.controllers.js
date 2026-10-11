@@ -55,8 +55,8 @@ export const signUp = async (req, res) => {
         res.cookie("token", token, {
             httpOnly: true,
             maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days,
-            sameSite: "Strict",
-            secure: false
+            sameSite: "none",
+            secure: true
         });
 
         // const filePath = path.join(process.cwd(), "templates/email_template.html");
