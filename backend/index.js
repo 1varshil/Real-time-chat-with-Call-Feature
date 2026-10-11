@@ -14,14 +14,25 @@ dotenv.config();
 
 const port = process.env.PORT || 5000;
 
-const allowedOrigins = [
-"http://localhost:5173",
-"https://real-time-chat-with-call-feature.vercel.app",
+const defaultAllowedOrigins = [
+  "http://localhost:5173",
+  "https://real-time-chat-with-call-feature.vercel.app",
 ];
 
+const clientUrls = process.env.CLIENT_URL
+  ? process.env.CLIENT_URL.split(",").map((url) => url.trim().replace(/\/+$/, ""))
+  : [];
+
+const allowedOrigins = Array.from(new Set([...defaultAllowedOrigins, ...clientUrls])).filter(Boolean);
+
 app.use(cors({
-origin: allowedOrigins,
-credentials: true,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error(`CORS blocked origin: ${origin}`));
+  },
+  credentials: true,
 }));
 
 

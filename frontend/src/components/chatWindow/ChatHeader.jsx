@@ -37,41 +37,42 @@ const ChatHeader = ({ activeChat, isGroup, onBack, isChatUserOnline }) => {
     <motion.div
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className="px-8 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02] backdrop-blur-md"
+      className="px-3 sm:px-6 md:px-8 py-3 md:py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02] backdrop-blur-md gap-2"
     >
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-2.5 sm:gap-4 md:gap-5 min-w-0 flex-1">
         <button
           onClick={onBack}
-          className="md:hidden p-2 hover:bg-white/10 rounded-xl transition-all text-gray-400"
+          aria-label="Back to conversations"
+          className="md:hidden p-2 -ml-1 hover:bg-white/10 rounded-xl transition-all text-gray-300 hover:text-white shrink-0 active:scale-95"
         >
-          <HiOutlineArrowLeft className="text-xl" />
+          <HiOutlineArrowLeft className="text-xl sm:text-2xl" />
         </button>
-        <div className="relative flex items-center gap-4">
+        <div className="relative flex items-center gap-2.5 sm:gap-4 min-w-0 flex-1">
           {isGroup ? (
-            <div className="flex flex-col">
-              <h2 className="font-bold text-white text-lg tracking-tight">
+            <div className="flex flex-col min-w-0">
+              <h2 className="font-bold text-white text-base sm:text-lg tracking-tight truncate">
                 {activeChat.name || activeChat.groupName}
               </h2>
-              <p className="text-xs text-gray-500 truncate max-w-[200px]">
-                {memberNames}
+              <p className="text-[11px] sm:text-xs text-gray-400 truncate max-w-[170px] sm:max-w-[280px] md:max-w-[400px]">
+                {memberNames || `${activeChat?.members?.length || 0} members`}
               </p>
             </div>
           ) : (
             <>
-              <div className="relative">
+              <div className="relative shrink-0">
                 <Avatar
                   src={activeChat.image || DefaultImg}
                   initials={getInitials(activeChat.name || activeChat.username)}
                   isOnline={isChatUserOnline}
-                  size="h-12 w-12"
+                  size="h-10 w-10 sm:h-12 sm:w-12"
                 />
                 {isChatUserOnline && (
-                  <div className="absolute bottom-0 right-0 h-3.5 w-3.5 bg-green-500 border-2 border-[#1a1a1a] rounded-full"></div>
+                  <div className="absolute bottom-0 right-0 h-3 w-3 sm:h-3.5 sm:w-3.5 bg-green-500 border-2 border-[#1a1a1a] rounded-full"></div>
                 )}
               </div>
 
-              <div className="flex flex-col">
-                <h2 className="font-bold text-white text-lg tracking-tight">
+              <div className="flex flex-col min-w-0">
+                <h2 className="font-bold text-white text-base sm:text-lg tracking-tight truncate max-w-[140px] sm:max-w-[240px] md:max-w-none">
                   {activeChat.name || activeChat.username}
                 </h2>
                 <div className="flex items-center gap-1.5">
@@ -83,11 +84,11 @@ const ChatHeader = ({ activeChat, isGroup, onBack, isChatUserOnline }) => {
                     }`}
                   ></span>
                   <p
-                    className={`text-xs font-bold ${
+                    className={`text-[10px] sm:text-xs font-bold ${
                       isChatUserOnline ? "text-green-500/80" : "text-gray-500"
-                    } uppercase tracking-wider`}
+                    } uppercase tracking-wider truncate`}
                   >
-                    {isChatUserOnline ? "Online Now" : "Currently Offline"}
+                    {isChatUserOnline ? "Online Now" : "Offline"}
                   </p>
                 </div>
               </div>
@@ -95,16 +96,19 @@ const ChatHeader = ({ activeChat, isGroup, onBack, isChatUserOnline }) => {
           )}
         </div>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1 sm:gap-2 shrink-0">
         <button
           onClick={handleCall}
           title="Start a call"
-          className="p-2.5 hover:bg-indigo-500/20 rounded-xl transition-all text-gray-400 hover:text-indigo-400 border border-white/5 hover:border-indigo-500/30 active:scale-95"
+          className="p-2 sm:p-2.5 hover:bg-indigo-500/20 rounded-xl transition-all text-gray-300 hover:text-indigo-400 border border-white/5 hover:border-indigo-500/30 active:scale-95"
         >
-          <HiOutlinePhone className="text-xl" />
+          <HiOutlinePhone className="text-lg sm:text-xl" />
         </button>
-        <button className="p-2.5 hover:bg-white/10 rounded-xl transition-all text-gray-400 border border-white/5">
-          <HiOutlineDotsVertical className="text-xl" />
+        <button 
+          title="More options"
+          className="p-2 sm:p-2.5 hover:bg-white/10 rounded-xl transition-all text-gray-300 border border-white/5 active:scale-95"
+        >
+          <HiOutlineDotsVertical className="text-lg sm:text-xl" />
         </button>
       </div>
     </motion.div>

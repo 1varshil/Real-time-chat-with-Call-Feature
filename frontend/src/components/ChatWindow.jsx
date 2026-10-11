@@ -33,14 +33,14 @@ const ChatWindow = ({ activeChat, onBack }) => {
 
   if (!activeChat) {
     return (
-      <div className="w-[76%] h-full flex items-center justify-center">
+      <div className="hidden md:flex flex-1 h-full items-center justify-center">
         <Norecords />
       </div>
     );
   }
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-[#0b141a] relative z-10 overflow-hidden">
+    <div className="flex-1 flex flex-col h-full w-full bg-[#0b141a] relative z-10 overflow-hidden">
       {/* Beautiful Chat Wallpaper */}
       <div 
         className="absolute inset-0 z-0 opacity-[0.15] bg-repeat pointer-events-none mix-blend-screen"

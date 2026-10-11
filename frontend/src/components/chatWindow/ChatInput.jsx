@@ -66,20 +66,20 @@ const ChatInput = ({ activeChat, addMessage, emitTyping }) => {
   };
 
   return (
-    <div className="p-6 bg-white/[0.02] backdrop-blur-lg border-t border-white/5">
+    <div className="p-3 sm:p-4 md:p-6 bg-white/[0.02] backdrop-blur-lg border-t border-white/5">
       <AnimatePresence>
         {imagePreview && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="pb-4"
+            className="pb-3"
           >
             <div className="relative inline-block group">
               <img
                 src={imagePreview}
                 alt="preview"
-                className="h-24 w-auto rounded-xl border-2 border-indigo-500/50 object-cover shadow-2xl"
+                className="h-20 sm:h-24 w-auto rounded-xl border-2 border-indigo-500/50 object-cover shadow-2xl"
               />
               <button
                 type="button"
@@ -94,11 +94,11 @@ const ChatInput = ({ activeChat, addMessage, emitTyping }) => {
       </AnimatePresence>
 
       <form onSubmit={sendMessage} className="relative">
-        <div className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-[24px] p-2 pl-4 focus-within:border-indigo-500/50 transition-all shadow-inner">
+        <div className="flex items-center gap-2 sm:gap-4 bg-white/5 border border-white/10 rounded-2xl md:rounded-[24px] p-1.5 sm:p-2 pl-3 sm:pl-4 focus-within:border-indigo-500/50 transition-all shadow-inner">
           <button
             type="button"
             onClick={() => setShowEmoji(!showEmoji)}
-            className="text-2xl text-gray-400 hover:text-white transition-colors hover:scale-110 active:scale-95"
+            className="text-xl sm:text-2xl text-gray-400 hover:text-white transition-colors hover:scale-110 active:scale-95 shrink-0"
           >
             😊
           </button>
@@ -107,9 +107,14 @@ const ChatInput = ({ activeChat, addMessage, emitTyping }) => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="absolute bottom-[130%] left-0 z-50 shadow-2xl rounded-2xl overflow-hidden border border-white/10"
+              className="absolute bottom-[115%] left-0 sm:left-2 z-50 shadow-2xl rounded-2xl overflow-hidden border border-white/10 max-w-[90vw]"
             >
-              <EmojiPicker theme="dark" onEmojiClick={handleEmojiClick} />
+              <EmojiPicker
+                theme="dark"
+                onEmojiClick={handleEmojiClick}
+                width={window.innerWidth < 640 ? 300 : 350}
+                height={380}
+              />
             </motion.div>
           )}
 
@@ -118,7 +123,7 @@ const ChatInput = ({ activeChat, addMessage, emitTyping }) => {
             value={message}
             onChange={handleChange}
             placeholder="Type your message..."
-            className="flex-1 bg-transparent border-none outline-none text-white placeholder-gray-500 text-[16px] font-medium py-2"
+            className="flex-1 bg-transparent border-none outline-none text-white placeholder-gray-500 text-sm sm:text-[16px] font-medium py-1.5 sm:py-2 min-w-0"
             disabled={isSending}
           />
 
@@ -133,21 +138,21 @@ const ChatInput = ({ activeChat, addMessage, emitTyping }) => {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="p-2 text-gray-400 hover:text-indigo-400 transition-all hover:bg-white/5 rounded-full"
+            className="p-1.5 sm:p-2 text-gray-400 hover:text-indigo-400 transition-all hover:bg-white/5 rounded-full shrink-0"
             disabled={isSending}
           >
-            <HiOutlinePaperClip className="text-2xl" />
+            <HiOutlinePaperClip className="text-xl sm:text-2xl" />
           </button>
 
           <button
             type="submit"
             disabled={isSending || (!message.trim() && !imageFile)}
-            className="flex items-center justify-center h-12 w-12 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-full transition-all shadow-[0_4px_15px_rgba(79,70,229,0.4)] active:scale-90"
+            className="flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-full transition-all shadow-[0_4px_15px_rgba(79,70,229,0.4)] active:scale-90 shrink-0"
           >
             {isSending ? (
-              <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+              <div className="h-4 w-4 sm:h-5 sm:w-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
             ) : (
-              <IoSend className="text-xl translate-x-0.5" />
+              <IoSend className="text-lg sm:text-xl translate-x-0.5" />
             )}
           </button>
         </div>

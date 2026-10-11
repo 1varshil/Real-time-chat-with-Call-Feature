@@ -23,7 +23,7 @@ const MessageBubble = ({ msg, isMine, isGroup, memberCount = 0 }) => {
       className={`flex ${isMine ? "justify-end" : "justify-start"}`}
     >
       <div
-        className={`relative p-4 rounded-2xl max-w-[70%] group shadow-xl ${
+        className={`relative p-3 sm:p-4 rounded-2xl max-w-[85%] sm:max-w-[75%] md:max-w-[70%] group shadow-xl ${
           isMine
             ? "bg-gradient-to-br from-indigo-600 to-indigo-700 text-white rounded-br-none shadow-indigo-500/10"
             : "bg-white/5 backdrop-blur-md text-gray-100 border border-white/10 rounded-bl-none shadow-black/20"

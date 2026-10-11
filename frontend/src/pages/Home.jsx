@@ -26,14 +26,14 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center p-0 md:p-8 bg-[#0f172a] overflow-hidden relative">
+    <div className="h-[100dvh] w-full flex items-center justify-center p-0 md:p-6 lg:p-8 bg-[#0f172a] overflow-hidden relative">
       <div className="mesh-gradient opacity-40"></div>
 
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="w-full max-w-[1600px] h-screen md:h-[90vh] glass-card rounded-none md:rounded-[32px] flex overflow-hidden border border-white/10 relative z-10"
+        className="w-full max-w-[1600px] h-full md:h-[92vh] glass-card rounded-none md:rounded-[32px] flex overflow-hidden border-0 md:border md:border-white/10 relative z-10 shadow-2xl"
       >
         <ChatSidebar
           conversations={otherUsers}
@@ -49,12 +49,13 @@ function Home() {
         <motion.button
           whileHover={{ scale: 1.1, rotate: 5 }}
           whileTap={{ scale: 0.9 }}
-          className={`absolute bottom-6 left-6 text-white/50 hover:text-red-400 transition-colors z-30 bg-white/5 backdrop-blur-md p-3 rounded-2xl border border-white/10 shadow-xl ${
+          title="Logout"
+          className={`absolute bottom-4 left-4 md:bottom-6 md:left-6 text-white/60 hover:text-red-400 transition-colors z-30 bg-white/10 hover:bg-white/15 backdrop-blur-md p-2.5 md:p-3 rounded-2xl border border-white/10 shadow-xl ${
             activeChat ? "hidden md:block" : "block"
           }`}
           onClick={handleLogout}
         >
-          <FiLogOut size={22} />
+          <FiLogOut size={20} className="md:w-[22px] md:h-[22px]" />
         </motion.button>
       </motion.div>
     </div>

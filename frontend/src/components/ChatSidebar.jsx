@@ -60,59 +60,60 @@ const ChatSidebar = ({ conversations, activeChat, onChatSelect, groups }) => {
     <motion.div
       initial={{ x: -20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className={`${activeChat ? "hidden md:flex" : "flex"} w-full md:w-[320px] lg:w-[380px] flex-col h-full bg-black/20 backdrop-blur-xl border-r border-white/10 z-20`}
+      transition={{ duration: 0.4 }}
+      className={`${activeChat ? "hidden md:flex" : "flex"} w-full md:w-[320px] lg:w-[380px] xl:w-[420px] shrink-0 flex-col h-full bg-black/30 md:bg-black/20 backdrop-blur-xl border-r border-white/10 z-20 overflow-hidden`}
     >
       <div
-        className="flex justify-between items-center p-6 cursor-pointer hover:bg-white/5 transition-colors group"
+        className="flex justify-between items-center p-4 md:p-6 cursor-pointer hover:bg-white/5 transition-colors group border-b border-white/5 md:border-b-0"
         onClick={() => navigate("/profile")}
       >
-        <div className="flex flex-col">
-          <span className="text-xs text-gray-400 font-medium tracking-widest uppercase">
+        <div className="flex flex-col min-w-0 pr-2">
+          <span className="text-[11px] text-gray-400 font-medium tracking-widest uppercase">
             My Profile
           </span>
-          <h2 className="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">
+          <h2 className="text-lg md:text-xl font-bold text-white group-hover:text-indigo-400 transition-colors truncate">
             {userData?.name || userData?.username}
           </h2>
         </div>
-        <div className="relative">
+        <div className="relative shrink-0">
           <Avatar
             src={userData?.image}
             initials={getInitials(userData?.name || userData?.username)}
             isOnline={true}
-            size="h-12 w-12"
+            size="h-10 w-10 md:h-12 md:w-12"
           />
-          <div className="absolute -bottom-1 -right-1 h-4 w-4 bg-green-500 border-2 border-[#1a1a1a] rounded-full"></div>
+          <div className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 md:h-4 md:w-4 bg-green-500 border-2 border-[#1a1a1a] rounded-full"></div>
         </div>
       </div>
 
       {/* Search Header */}
-      <div className="px-6 pb-4 flex items-center gap-2 w-full">
+      <div className="px-4 md:px-6 pt-3 md:pt-0 pb-3 md:pb-4 flex items-center gap-2 w-full">
         <div className="relative flex-1 group">
           <input
             type="text"
             placeholder="Search messages..."
-            className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all text-white placeholder-gray-500 text-sm"
+            className="w-full pl-9 md:pl-10 pr-3 md:pr-4 py-2 md:py-2.5 bg-white/5 border border-white/10 rounded-xl md:rounded-2xl outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all text-white placeholder-gray-500 text-sm"
           />
-          <HiOutlineSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-lg group-focus-within:text-indigo-400 transition-colors" />
+          <HiOutlineSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-base md:text-lg group-focus-within:text-indigo-400 transition-colors" />
         </div>
         <button
           onClick={() => setIsCreateGroupModalOpen(true)}
-          className="h-10 w-10 flex items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 transition-all border border-indigo-500/20 active:scale-95"
+          title="Create Group"
+          className="h-9 w-9 md:h-10 md:w-10 flex items-center justify-center rounded-xl md:rounded-2xl bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 transition-all border border-indigo-500/20 active:scale-95 shrink-0"
         >
-          <FaPlus className="text-sm" />
+          <FaPlus className="text-xs md:text-sm" />
         </button>
       </div>
 
       {/* Online Users Horizontal Bar */}
-      <div className="px-6 py-4 flex flex-col gap-4">
+      <div className="px-4 md:px-6 py-2.5 md:py-4 flex flex-col gap-2.5 md:gap-4 border-b border-white/5 md:border-b-0">
         <div className="flex items-center justify-between">
           <p className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">
             Active Now
           </p>
-          <span className="h-1 w-1 rounded-full bg-indigo-500 animate-pulse"></span>
+          <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
         </div>
-        <div className="flex gap-4 overflow-x-auto py-1 no-scrollbar">
+        <div className="flex gap-3 md:gap-4 overflow-x-auto py-1 no-scrollbar">
           {activeNowUsers.length > 0 ? (
             activeNowUsers.map((user, idx) => (
               <motion.div
@@ -121,24 +122,24 @@ const ChatSidebar = ({ conversations, activeChat, onChatSelect, groups }) => {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: idx * 0.05 }}
                 onClick={() => onChatSelect({ ...user, isGroup: false })}
-                className="flex flex-col items-center cursor-pointer min-w-[56px] gap-2 group"
+                className="flex flex-col items-center cursor-pointer min-w-[50px] md:min-w-[56px] gap-1.5 md:gap-2 group"
               >
                 <div className="relative">
                   <Avatar
                     src={user.image || DefaultImg}
                     initials={getInitials(user.name || user.username)}
                     isOnline={true}
-                    size="h-14 w-14"
+                    size="h-12 w-12 md:h-14 md:w-14"
                   />
-                  <div className="absolute bottom-0 right-0 h-3.5 w-3.5 bg-green-500 border-2 border-[#1a1a1a] rounded-full"></div>
+                  <div className="absolute bottom-0 right-0 h-3 w-3 md:h-3.5 md:w-3.5 bg-green-500 border-2 border-[#1a1a1a] rounded-full"></div>
                 </div>
-                <span className="text-[10px] text-gray-400 font-semibold truncate w-14 text-center group-hover:text-white transition-colors">
+                <span className="text-[10px] text-gray-400 font-semibold truncate w-12 md:w-14 text-center group-hover:text-white transition-colors">
                   {(user.name || user.username)?.split(" ")[0]}
                 </span>
               </motion.div>
             ))
           ) : (
-            <div className="py-2 text-gray-500 text-xs italic opacity-50">
+            <div className="py-1 md:py-2 text-gray-500 text-xs italic opacity-50">
               None currently active
             </div>
           )}
@@ -146,12 +147,12 @@ const ChatSidebar = ({ conversations, activeChat, onChatSelect, groups }) => {
       </div>
 
       {/* Tabs */}
-      <div className="px-6 flex gap-4 mt-2">
+      <div className="px-4 md:px-6 flex gap-3 md:gap-4 mt-1 md:mt-2">
         {["Personal", "Groups"].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`flex-1 py-3 text-xs font-bold tracking-widest uppercase relative transition-all ${
+            className={`flex-1 py-2.5 md:py-3 text-xs font-bold tracking-widest uppercase relative transition-all ${
               activeTab === tab
                 ? "text-white"
                 : "text-gray-500 hover:text-gray-300"
@@ -189,18 +190,18 @@ const ChatSidebar = ({ conversations, activeChat, onChatSelect, groups }) => {
                 onClick={() =>
                   onChatSelect({ ...chat, isGroup: !!isGroup })
                 }
-                className={`px-6 py-4 flex items-center gap-4 transition-all hover:bg-white/5 cursor-pointer relative group ${
+                className={`px-4 md:px-6 py-3.5 md:py-4 flex items-center gap-3 md:gap-4 transition-all hover:bg-white/5 cursor-pointer relative group ${
                   activeChat?._id === chat._id
                     ? "bg-indigo-500/10 border-l-4 border-indigo-500"
                     : "border-l-4 border-transparent"
                 }`}
               >
-                <div className="relative">
+                <div className="relative shrink-0">
                   <Avatar
                     src={chat.image}
                     initials={getInitials(displayName)}
                     isOnline={!isGroup && isUserOnline(chat._id)}
-                    size="h-12 w-12"
+                    size="h-11 w-11 md:h-12 md:w-12"
                   />
                   {!isGroup && isUserOnline(chat._id) && (
                     <div className="absolute bottom-0 right-0 h-3 w-3 bg-green-500 border-2 border-[#1a1a1a] rounded-full"></div>
